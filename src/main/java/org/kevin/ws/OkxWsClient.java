@@ -7,7 +7,7 @@ import org.kevin.models.PriceCache;
 
 import java.util.List;
 
-public class OkxWsClient extends AbstractOkHttpWsClient {
+public class OkxWsClient extends BaseOkHttpWsClient {
     private static final ObjectMapper mapper = new ObjectMapper();
 
     public OkxWsClient(List<String> instId, PriceCache cache) {

@@ -1,4 +1,4 @@
-package org.kevin.ws;
+package org.kevin.interfaces;
 
 public interface ExchangeWsClient extends AutoCloseable{
     void start();

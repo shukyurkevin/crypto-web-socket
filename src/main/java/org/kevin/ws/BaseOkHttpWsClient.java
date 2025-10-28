@@ -5,19 +5,20 @@ import okhttp3.*;
 import okio.ByteString;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.kevin.interfaces.ExchangeWsClient;
 import org.kevin.models.PriceCache;
 import org.kevin.models.PriceUpdate;
 
 import java.util.List;
 
-public abstract class AbstractOkHttpWsClient implements ExchangeWsClient{
+public abstract class BaseOkHttpWsClient implements ExchangeWsClient {
     protected final OkHttpClient httpClient =  new OkHttpClient();
     protected volatile WebSocket ws;
     protected final PriceCache priceCache;
     protected final List<String> symbols;
     protected final String name;
 
-    protected AbstractOkHttpWsClient(String name, PriceCache priceCache, List<String> symbols) {
+    protected BaseOkHttpWsClient(String name, PriceCache priceCache, List<String> symbols) {
         this.name = name;
         this.priceCache = priceCache;
         this.symbols = symbols;
