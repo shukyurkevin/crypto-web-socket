@@ -1,4 +1,4 @@
-package org.kevin.ws;
+package org.kevin.ws.clients;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -33,6 +33,7 @@ public class KrakenWsClient extends BaseOkHttpWsClient {
             JsonNode root = mapper.readTree(msg);
             if (!root.has("data"))return;
             JsonNode dataArray = root.get("data");
+
             if (dataArray.isArray()) {
             for (JsonNode data : dataArray) {
                 String instId = data.get("symbol").asText();

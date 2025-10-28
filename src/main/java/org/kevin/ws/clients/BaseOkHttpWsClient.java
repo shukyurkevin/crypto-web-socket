@@ -1,4 +1,4 @@
-package org.kevin.ws;
+package org.kevin.ws.clients;
 
 
 import okhttp3.*;
@@ -57,7 +57,7 @@ public abstract class BaseOkHttpWsClient implements ExchangeWsClient {
 
            @Override
            public void onFailure(@NotNull WebSocket webSocket, @NotNull Throwable t, @Nullable Response response) {
-               System.out.println("failed :" + name);;
+               System.out.println("Connection failed :" + null);
                super.onFailure(webSocket, t, response);
            }
        });

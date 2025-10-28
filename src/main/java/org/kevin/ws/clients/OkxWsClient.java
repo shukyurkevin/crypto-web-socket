@@ -1,4 +1,4 @@
-package org.kevin.ws;
+package org.kevin.ws.clients;
 
 
 import com.fasterxml.jackson.databind.JsonNode;
@@ -34,6 +34,7 @@ public class OkxWsClient extends BaseOkHttpWsClient {
         try {
             JsonNode root = mapper.readTree(msg);
             if (!root.has("data"))return;
+
             for (JsonNode data : root.get("data")){
                 String instId = data.get("instId").asText();
                 String newestPrice = data.get("last").asText();
