@@ -23,7 +23,8 @@ public class OkxWsClient extends AbstractOkHttpWsClient {
     protected String buildSubscriptionRequest() {
         StringBuilder sb = new StringBuilder("{\"op\":\"subscribe\",\"args\":[");
         for (int i = 0; i< symbols.size(); i++){
-            sb.append("\"channel\":\"tickets\",\"instId\":\"").append(symbols.get(i)).append("\"");
+            if(i>0){sb.append(",");}
+            sb.append("{\"channel\":\"tickers\",\"instId\":\"").append(symbols.get(i)).append("\"}");
         }
         return sb.append("]}").toString();
     }
@@ -36,9 +37,10 @@ public class OkxWsClient extends AbstractOkHttpWsClient {
             for (JsonNode data : root.get("data")){
                 String instId = data.get("instId").asText();
                 String newestPrice = data.get("last").asText();
-                long timestamp = data.get("timestamp").asLong(System.currentTimeMillis());
+                long timestamp = data.get("ts").asLong(System.currentTimeMillis());
                 update(instId, newestPrice, timestamp);
             }
-        }catch (Exception ignored){}
+        }catch (Exception ignored){
+        }
     }
 }

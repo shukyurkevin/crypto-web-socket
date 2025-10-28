@@ -6,7 +6,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 public class PriceCache {
-    @Getter
     private final ConcurrentMap<String, PriceUpdate> map =  new ConcurrentHashMap<>();
 
     public void put(PriceUpdate u) {
@@ -18,5 +17,9 @@ public class PriceCache {
 
     private static String key(String exchange, String symbol) {
         return exchange +"|"+ symbol;
+    }
+
+    public  ConcurrentMap<String, PriceUpdate> getMap() {
+        return map;
     }
 }
