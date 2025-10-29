@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Starter {
     public static void main(String[] args) throws Exception {
-        PriceCache priceCache = new PriceCache();
+        PriceCache priceCache = PriceCache.INSTANCE;
         List<BaseOkHttpWsClient> exchangeWsClients = new ArrayList<>();
         exchangeWsClients.add(new OkxWsClient(List.of("BTC-USDT","ETH-USDT"),priceCache));
         exchangeWsClients.add(new KrakenWsClient(List.of("BTC/USDT","ETH/USDT"),priceCache));
@@ -23,7 +23,7 @@ public class Starter {
         while (true){
             Thread.sleep(4000);
             System.out.println("-----GigaTest-----");
-            priceCache.getMap().forEach((k,v)->{
+            priceCache.getPriceMap().forEach((k, v)->{
                 System.out.println(k+" : "+v.price() +"    data: "+ Instant.ofEpochMilli(v.timestamp()));
             });
         }

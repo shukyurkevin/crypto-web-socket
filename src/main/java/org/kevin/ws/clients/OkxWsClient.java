@@ -31,6 +31,7 @@ public class OkxWsClient extends BaseOkHttpWsClient {
 
     @Override
     protected void onTextMessage(String msg) {
+ //       System.out.println(msg);
         try {
             JsonNode root = mapper.readTree(msg);
             if (!root.has("data"))return;

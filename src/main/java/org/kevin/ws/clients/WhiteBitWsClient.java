@@ -24,9 +24,7 @@ public class WhiteBitWsClient extends BaseOkHttpWsClient{
             if (i>0) sb.append(",");
             sb.append("\"").append(symbols.get(i)).append("\"");
         }
-        String result = sb.append("]}").toString();
-        System.out.println(result);
-        return result;
+        return sb.append("]}").toString();
     }
 
     @Override
