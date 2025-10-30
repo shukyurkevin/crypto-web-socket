@@ -1,5 +1,6 @@
 package org.kevin.ws.clients.endpoints;
 
+import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.JsonNode;
@@ -7,17 +8,17 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.websocket.*;
 import jakarta.websocket.server.ServerEndpoint;
 import org.apache.commons.collections4.MapUtils;
+import org.kevin.exceptions.JsonReadException;
 import org.kevin.models.PriceCache;
 import org.kevin.models.PriceUpdate;
 import org.kevin.models.Subscription;
 import org.kevin.models.SubscriptionRequest;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.*;
 
-@ServerEndpoint("/exchange")
+@ServerEndpoint(value = "/exchange")
 public class ExchangeEndPoint {
     private final Map<Session, Map<Long,Subscription>> clients = new ConcurrentHashMap<>();
     private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(4);
@@ -49,9 +50,8 @@ public class ExchangeEndPoint {
                 }
 
             }
-        } catch (Exception e){
-            e.printStackTrace();
-        }
+        } catch (JsonProcessingException e) {
+            throw new JsonReadException("Error parsing message: " + e.getMessage());}
 
     }
     @OnError
@@ -73,7 +73,8 @@ public class ExchangeEndPoint {
                         String json = mapper.writeValueAsString(prices);
                         session.getAsyncRemote().sendText(json);
 
-                    }catch (Exception ignored){}
+                    }catch (JsonProcessingException e) {
+                        throw new JsonReadException("Error parsing message: " + e.getMessage());}
                 }
                 ,0
                 ,request.getTickInterval()

@@ -110,11 +110,12 @@ public abstract class BaseOkHttpWsClient implements ExchangeWsClient{
             if (ws != null) {
                 ws.close(1000, "shutting down");
             }
-        }catch (Exception ignored){}
+        }catch (Exception ignore){
+        }
         finally {
+            scheduler.shutdownNow();
             httpClient.dispatcher().executorService().shutdown();
             httpClient.connectionPool().evictAll();
-            scheduler.shutdownNow();
         }
     }
 

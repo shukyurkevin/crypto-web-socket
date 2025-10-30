@@ -8,6 +8,7 @@ import lombok.Getter;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @AllArgsConstructor
+@Getter
 public class SubscriptionRequest {
     private final long id;
     private final String symbol;
@@ -19,16 +20,4 @@ public SubscriptionRequest(JsonNode node) {
     this.symbol = node.get("symbol").asText();
     this.tickInterval = node.get("tick-interval").asLong();
 }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getSymbol() {
-        return symbol;
-    }
-
-    public long getTickInterval() {
-        return tickInterval;
-    }
 }

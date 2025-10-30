@@ -10,15 +10,18 @@
       <option name="ignoredModules">
         <list>
           <option value="crypto-web-socket" />
+          <option value="crypto-web-socket" />
         </list>
       </option>
       <option name="ignoredPackages">
         <list>
           <option value="com.squareup.okio:okio:1.6.0" />
+          <option value="org.glassfish.grizzly:grizzly-http:4.0.2" />
         </list>
       </option>
       <option name="ignoredReasons">
         <list>
+          <option value="Not exploitable" />
           <option value="Not exploitable" />
         </list>
       </option>

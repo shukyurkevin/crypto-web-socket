@@ -10,6 +10,7 @@ import java.util.concurrent.CopyOnWriteArraySet;
 
 public class PriceCache {
     public static final PriceCache INSTANCE = new PriceCache();
+    @Getter
     private final ConcurrentMap<String, PriceUpdate> priceMap =  new ConcurrentHashMap<>();
     private final ConcurrentMap<String, CopyOnWriteArraySet<PriceUpdate>> mapBySymbol = new ConcurrentHashMap<>();
 
@@ -36,9 +37,6 @@ public class PriceCache {
                 .replace("-","")
                 .replace("/","")
                 .toUpperCase();
-    }
-    public ConcurrentMap<String, PriceUpdate> getPriceMap() {
-        return priceMap;
     }
 
 }
