@@ -61,10 +61,12 @@ public class ExchangeEndPoint {
     public void subscribe(Session session, SubscriptionRequest request) {
         ScheduledFuture<?> future = scheduler.scheduleAtFixedRate(
                 ()->{
-
-
                     Subscription sub = clients.get(session).get(request.getId());
                     if(sub==null)return;
+
+                    if (!alive(session)){
+                        unsubscribe(session, request.getId());
+                    }
 
                     List<PriceUpdate> prices = cache.findBySymbol(sub.symbol());
                     if(prices.isEmpty())return;
@@ -106,7 +108,9 @@ public class ExchangeEndPoint {
         if (MapUtils.isEmpty(map)){
             clients.remove(session);
         }
-
+    }
+    private boolean alive(Session s) {
+        return s != null && s.isOpen();
     }
     public void unsubscribeAll(){
         if (MapUtils.isEmpty(clients))return;
