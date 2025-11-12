@@ -52,5 +52,9 @@ public class Starter {
             );
 
         }
+        exchangeWsClients.forEach(BaseOkHttpWsClient::close);
+        server.stop();
+        System.out.println("Goodbye!");
+        System.exit(0);
     }
 }
