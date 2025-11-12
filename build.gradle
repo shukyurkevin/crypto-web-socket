@@ -1,7 +1,11 @@
 plugins {
     id 'java'
+    id 'application'
 }
 
+application {
+    mainClass = 'org.kevin.Starter'
+}
 group = 'org.kevin'
 version = '1.0-SNAPSHOT'
 ext {

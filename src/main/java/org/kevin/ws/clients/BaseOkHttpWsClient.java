@@ -20,6 +20,7 @@ public abstract class BaseOkHttpWsClient implements ExchangeWsClient{
     protected final ScheduledExecutorService scheduler = Executors.newSingleThreadScheduledExecutor();
 
     protected volatile WebSocket ws;
+    protected volatile boolean closed = false;
     protected final PriceCache priceCache;
     protected final List<String> symbols;
     protected final String name;
@@ -82,6 +83,7 @@ public abstract class BaseOkHttpWsClient implements ExchangeWsClient{
 
     }
     public void reconnect(){
+        if (closed) return;
         int attempts = reconnectAttempts.incrementAndGet();
         if (attempts > MAX_RECONNECT_ATTEMPTS){
             System.out.println("reconnection failed");
@@ -106,6 +108,7 @@ public abstract class BaseOkHttpWsClient implements ExchangeWsClient{
 
     @Override
     public void close(){
+        closed = true;
         try {
             if (ws != null) {
                 ws.close(1000, "shutting down");
