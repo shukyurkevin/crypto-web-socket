@@ -40,7 +40,9 @@ public class Starter {
 
         exchangeWsClients.forEach(BaseOkHttpWsClient::start);
 
-        while (true) {
+        int count = 0;
+        while (count < 5) {
+            count++;
             Thread.sleep(4000);
 
             System.out.println("-----GigaTest-----");
